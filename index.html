@@ -573,17 +573,58 @@
     var inp = document.getElementById('f_addr');
     var box = document.getElementById('addrSug');
     if(!inp||!box) return;
+    var timer = null;
+
     inp.addEventListener('input', function(){
       var v = this.value.trim();
-      if(v.length < 3){ box.style.display='none'; return; }
-      var cities = ['San Diego, CA','Chula Vista, CA','El Cajon, CA','Escondido, CA','Santee, CA','La Mesa, CA','Spring Valley, CA','National City, CA','Lemon Grove, CA','Bonita, CA'];
-      box.innerHTML = cities.map(function(c){
-        var s = v + ', ' + c;
-        return '<div style="padding:11px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid #e2ddd3;" onmousedown="document.getElementById('f_addr').value=''+s+'';document.getElementById('addrSug').style.display='none'">📍 '+s+'</div>';
-      }).join('');
-      box.style.display='block';
+      box.innerHTML = '';
+      box.style.display = 'none';
+      if(v.length < 4) return;
+      clearTimeout(timer);
+      // Show loading indicator
+      var loading = document.createElement('div');
+      loading.style.cssText = 'padding:11px 14px;font-size:13px;color:#a8895f;';
+      loading.textContent = '🔍 Searching addresses...';
+      box.appendChild(loading);
+      box.style.display = 'block';
+
+      timer = setTimeout(function(){
+        // Use Nominatim OpenStreetMap API - completely free, real addresses
+        var url = 'https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=6&countrycodes=us&q=' + encodeURIComponent(v + ' San Diego California') + '&viewbox=-117.6,32.5,-116.9,33.2&bounded=0';
+        fetch(url, { headers: { 'Accept-Language': 'en' } })
+          .then(function(r){ return r.json(); })
+          .then(function(data){
+            box.innerHTML = '';
+            if(!data || data.length === 0){
+              box.style.display = 'none';
+              return;
+            }
+            data.forEach(function(item){
+              var addr = item.display_name;
+              // Clean up the address to be shorter
+              var parts = addr.split(',');
+              var short = parts.slice(0, 4).join(',').trim();
+              var d = document.createElement('div');
+              d.style.cssText = 'padding:11px 14px;cursor:pointer;font-size:12.5px;border-bottom:1px solid #e2ddd3;line-height:1.4;';
+              d.textContent = '📍 ' + short;
+              d.addEventListener('mousedown', function(e){
+                e.preventDefault();
+                inp.value = short;
+                box.style.display = 'none';
+              });
+              box.appendChild(d);
+            });
+            box.style.display = data.length > 0 ? 'block' : 'none';
+          })
+          .catch(function(){
+            box.style.display = 'none';
+          });
+      }, 500);
     });
-    document.addEventListener('click', function(e){ if(e.target!==inp) box.style.display='none'; });
+
+    document.addEventListener('click', function(e){
+      if(e.target !== inp){ box.style.display = 'none'; }
+    });
   });
 
   function goToQ(){
@@ -600,7 +641,7 @@
   function pick(btn, fieldId, currentQ, nextQId, qIndex){
     btn.closest('.choice-grid').querySelectorAll('.choice-btn').forEach(function(b){b.classList.remove('selected');});
     btn.classList.add('selected');
-    document.getElementById(fieldId).value = btn.textContent.trim().replace(/^\S+\s/,'');
+    document.getElementById(fieldId).value = btn.textContent.trim().split(' ').slice(1).join(' ');
     setTimeout(function(){
       document.getElementById(currentQ).style.display='none';
       document.getElementById(nextQId).style.display='block';
@@ -621,7 +662,7 @@
   function pickAndSubmit(btn, fieldId){
     btn.closest('.choice-grid').querySelectorAll('.choice-btn').forEach(function(b){b.classList.remove('selected');});
     btn.classList.add('selected');
-    document.getElementById(fieldId).value = btn.textContent.trim().replace(/^\S+\s/,'');
+    document.getElementById(fieldId).value = btn.textContent.trim().split(' ').slice(1).join(' ');
     var name = document.getElementById('f_name').value.trim();
     document.getElementById('screen2').style.display='none';
     document.getElementById('screen3').style.display='block';
