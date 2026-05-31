@@ -323,70 +323,51 @@
     <!-- Quick lead form -->
     <div class="calc-card" id="offer">
 
-        <!-- SCREEN 1: Simple contact form -->
+        <!-- SCREEN 1: Contact form -->
         <div id="screen1">
           <h3 style="font-size:20px;margin-bottom:6px;">Get Your Free Cash Offer</h3>
           <p class="calc-sub">Takes 30 seconds — no obligation.</p>
-
           <div class="field">
             <label>Property Address</label>
-            <div style="position:relative;">
-              <input type="text" id="f_addr" placeholder="123 Main St, San Diego, CA" autocomplete="off" />
-              <div id="addrSug" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--white);border:1.5px solid var(--gold);border-top:none;border-radius:0 0 10px 10px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,0.1);max-height:200px;overflow-y:auto;"></div>
-            </div>
+            <input type="text" id="f_addr" placeholder="123 Main St, San Diego, CA" autocomplete="off" />
+            <div id="addrSug" style="display:none;position:absolute;z-index:99;background:#fff;border:1.5px solid #c2a780;border-radius:0 0 10px 10px;width:calc(100% - 2px);box-shadow:0 8px 24px rgba(0,0,0,0.1);"></div>
           </div>
-
-          <div class="field">
-            <label>Full Name</label>
-            <input type="text" id="f_name" placeholder="Your name" />
-          </div>
-
+          <div class="field"><label>Full Name</label><input type="text" id="f_name" placeholder="Your name" /></div>
           <div class="row2">
-            <div class="field">
-              <label>Phone</label>
-              <input type="tel" id="f_phone" placeholder="(619) 555-0100" />
-            </div>
-            <div class="field">
-              <label>Email <span style="font-weight:300;text-transform:none;">(optional)</span></label>
-              <input type="email" id="f_email" placeholder="you@email.com" />
-            </div>
+            <div class="field"><label>Phone</label><input type="tel" id="f_phone" placeholder="(619) 555-0100" /></div>
+            <div class="field"><label>Email <span style="font-weight:300;text-transform:none;">(optional)</span></label><input type="email" id="f_email" placeholder="you@email.com" /></div>
           </div>
-
-          <button class="calc-btn" onclick="goToQuestions()">Get My Cash Offer →</button>
+          <button class="calc-btn" type="button" onclick="goToQ()">Get My Cash Offer →</button>
           <p class="calc-note">Free, no obligation. Your info is private and never shared.</p>
         </div>
 
         <!-- SCREEN 2: Property questions -->
         <div id="screen2" style="display:none;">
-          <!-- Progress bar -->
           <div style="margin-bottom:18px;">
             <div style="display:flex;justify-content:space-between;margin-bottom:7px;">
-              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-soft);">Question <span id="qNum">1</span> of 6</span>
-              <span style="font-size:11px;color:var(--ink-soft);" id="qPct">17%</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#6f6a62;">Question <span id="qNum">1</span> of 6</span>
+              <span style="font-size:11px;color:#6f6a62;" id="qPct">17%</span>
             </div>
-            <div style="height:4px;background:var(--sand);border-radius:99px;overflow:hidden;">
-              <div id="qBar" style="height:100%;background:var(--gold);border-radius:99px;width:17%;transition:width .4s ease;"></div>
+            <div style="height:4px;background:#ebe7df;border-radius:99px;overflow:hidden;">
+              <div id="qBar" style="height:100%;background:#a8895f;border-radius:99px;width:17%;transition:width .4s ease;"></div>
             </div>
           </div>
 
-          <!-- Q1: Property type -->
-          <div class="ms-step" id="q1">
-            <h3 style="font-size:18px;margin-bottom:5px;">What type of property is it?</h3>
+          <div id="q1">
+            <h3 style="font-size:18px;margin-bottom:5px;">What type of property?</h3>
             <p class="calc-sub">Select the one that fits.</p>
             <div class="choice-grid">
-              <button class="choice-btn" onclick="selectChoice(this,'f_type')">🏠 Single Family</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_type')">🏢 Condo</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_type')">🏘️ Townhouse</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_type')">🏚️ Multi-Family</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_type')">🚐 Mobile Home</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_type')">🌳 Land</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_type','q1','q2',1)">🏠 Single Family</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_type','q1','q2',1)">🏢 Condo</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_type','q1','q2',1)">🏘️ Townhouse</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_type','q1','q2',1)">🏚️ Multi-Family</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_type','q1','q2',1)">🚐 Mobile Home</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_type','q1','q2',1)">🌳 Land</button>
             </div>
             <input type="hidden" id="f_type" />
-            <button class="calc-btn" onclick="nextQ(1)" style="margin-top:14px;">Continue →</button>
           </div>
 
-          <!-- Q2: Beds/Baths -->
-          <div class="ms-step" id="q2" style="display:none;">
+          <div id="q2" style="display:none;">
             <h3 style="font-size:18px;margin-bottom:5px;">Bedrooms &amp; Bathrooms?</h3>
             <p class="calc-sub">Approximate is fine.</p>
             <div class="row2">
@@ -397,76 +378,67 @@
                 <select id="f_baths"><option value="">Select</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3+</option></select>
               </div>
             </div>
-            <button class="calc-btn" onclick="nextQ(2)">Continue →</button>
+            <button type="button" class="calc-btn" onclick="nextQ('q2','q3',2)">Continue →</button>
           </div>
 
-          <!-- Q3: Condition -->
-          <div class="ms-step" id="q3" style="display:none;">
-            <h3 style="font-size:18px;margin-bottom:5px;">What's the condition?</h3>
-            <p class="calc-sub">Be honest — it helps us give the best offer.</p>
+          <div id="q3" style="display:none;">
+            <h3 style="font-size:18px;margin-bottom:5px;">What is the condition?</h3>
+            <p class="calc-sub">Be honest — helps us give the best offer.</p>
             <div class="choice-grid">
-              <button class="choice-btn" onclick="selectChoice(this,'f_condition')">✨ Move-in ready</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_condition')">🔨 Needs some work</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_condition')">🏗️ Major repairs</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_condition')">🔥 Fire/Water damage</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_condition','q3','q4',3)">✨ Move-in ready</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_condition','q3','q4',3)">🔨 Needs some work</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_condition','q3','q4',3)">🏗️ Major repairs</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_condition','q3','q4',3)">🔥 Fire/Water damage</button>
             </div>
             <input type="hidden" id="f_condition" />
-            <button class="calc-btn" onclick="nextQ(3)" style="margin-top:14px;">Continue →</button>
           </div>
 
-          <!-- Q4: Occupied -->
-          <div class="ms-step" id="q4" style="display:none;">
+          <div id="q4" style="display:none;">
             <h3 style="font-size:18px;margin-bottom:5px;">Is the property occupied?</h3>
-            <p class="calc-sub">This helps us plan the timeline.</p>
+            <p class="calc-sub">Helps us plan the timeline.</p>
             <div class="choice-grid" style="grid-template-columns:1fr;">
-              <button class="choice-btn" onclick="selectChoice(this,'f_occupied')">🏡 Owner occupied</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_occupied')">👥 Tenant occupied</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_occupied')">🔑 Vacant</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_occupied','q4','q5',4)">🏡 Owner occupied</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_occupied','q4','q5',4)">👥 Tenant occupied</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_occupied','q4','q5',4)">🔑 Vacant</button>
             </div>
             <input type="hidden" id="f_occupied" />
-            <button class="calc-btn" onclick="nextQ(4)" style="margin-top:14px;">Continue →</button>
           </div>
 
-          <!-- Q5: Why selling -->
-          <div class="ms-step" id="q5" style="display:none;">
+          <div id="q5" style="display:none;">
             <h3 style="font-size:18px;margin-bottom:5px;">Why are you selling?</h3>
-            <p class="calc-sub">No judgment — helps us understand your situation.</p>
+            <p class="calc-sub">No judgment — helps us understand your needs.</p>
             <div class="choice-grid">
-              <button class="choice-btn" onclick="selectChoice(this,'f_why')">📦 Downsizing</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_why')">✈️ Relocating</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_why')">⚠️ Foreclosure</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_why')">🏛️ Inherited</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_why')">💔 Divorce</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_why')">🏘️ Tired Landlord</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_why')" style="grid-column:span 2;">🤔 Just Exploring</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_why','q5','q6',5)">📦 Downsizing</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_why','q5','q6',5)">✈️ Relocating</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_why','q5','q6',5)">⚠️ Foreclosure</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_why','q5','q6',5)">🏛️ Inherited</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_why','q5','q6',5)">💔 Divorce</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_why','q5','q6',5)">🏘️ Tired Landlord</button>
+              <button type="button" class="choice-btn" onclick="pick(this,'f_why','q5','q6',5)" style="grid-column:span 2;">🤔 Just Exploring</button>
             </div>
             <input type="hidden" id="f_why" />
-            <button class="calc-btn" onclick="nextQ(5)" style="margin-top:14px;">Continue →</button>
           </div>
 
-          <!-- Q6: Timeline -->
-          <div class="ms-step" id="q6" style="display:none;">
+          <div id="q6" style="display:none;">
             <h3 style="font-size:18px;margin-bottom:5px;">How soon do you want to sell?</h3>
             <p class="calc-sub">We work on your schedule.</p>
             <div class="choice-grid" style="grid-template-columns:1fr;">
-              <button class="choice-btn" onclick="selectChoice(this,'f_timeline')">🚀 ASAP</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_timeline')">📅 1–3 months</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_timeline')">🗓️ 3–6 months</button>
-              <button class="choice-btn" onclick="selectChoice(this,'f_timeline')">👀 Just exploring</button>
+              <button type="button" class="choice-btn" onclick="pickAndSubmit(this,'f_timeline')">🚀 ASAP</button>
+              <button type="button" class="choice-btn" onclick="pickAndSubmit(this,'f_timeline')">📅 1–3 months</button>
+              <button type="button" class="choice-btn" onclick="pickAndSubmit(this,'f_timeline')">🗓️ 3–6 months</button>
+              <button type="button" class="choice-btn" onclick="pickAndSubmit(this,'f_timeline')">👀 Just exploring</button>
             </div>
             <input type="hidden" id="f_timeline" />
-            <button class="calc-btn" onclick="submitAll()" style="margin-top:14px;">Submit My Info →</button>
           </div>
         </div>
 
-        <!-- Success screen -->
-        <div id="screen3" style="display:none;text-align:center;padding:24px 0;">
-          <div style="font-size:52px;margin-bottom:14px;">🎉</div>
-          <h3 style="font-size:22px;color:var(--forest-deep);margin-bottom:10px;">We got it!</h3>
-          <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;">Thanks <span id="successName"></span>! We'll review your property and reach out within 24 hours with your cash offer.<br><strong>Keep your phone handy!</strong></p>
+        <!-- SUCCESS -->
+        <div id="screen3" style="display:none;text-align:center;padding:20px 0;">
+          <div style="font-size:48px;margin-bottom:12px;">🎉</div>
+          <h3 style="font-size:21px;color:#33291f;margin-bottom:8px;">We got it!</h3>
+          <p style="color:#6f6a62;font-size:14px;line-height:1.7;">Thanks <span id="sName"></span>! We'll review your property and reach out within 24 hours.<br><strong>Keep your phone handy!</strong></p>
         </div>
-    </div>
-  </div>
+        </div>
 </header>
 
 <!-- HOW IT WORKS -->
@@ -593,126 +565,101 @@
 </footer>
 
 <script>
-  var FORM_ENDPOINT = "https://formspree.io/f/xqejoljb";
+  var EP = "https://formspree.io/f/xqejoljb";
   var qPcts = [17,33,50,67,83,100];
 
-  // ── Address Autocomplete ──
-  var cities = ['San Diego, CA','Chula Vista, CA','El Cajon, CA','Escondido, CA','Santee, CA','La Mesa, CA','Spring Valley, CA','National City, CA','Lemon Grove, CA','Bonita, CA'];
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var input = document.getElementById('f_addr');
+  // Address suggestions
+  document.addEventListener('DOMContentLoaded', function(){
+    var inp = document.getElementById('f_addr');
     var box = document.getElementById('addrSug');
-    if(!input || !box) return;
-
-    input.addEventListener('input', function() {
-      var val = this.value.trim();
-      if(val.length < 3){ box.style.display='none'; return; }
-      var suggestions = cities.map(function(c){ return val + ', ' + c; });
-      box.innerHTML = suggestions.map(function(s){
-        return '<div style="padding:12px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid #e2ddd3;display:flex;align-items:center;gap:8px;" onmousedown="document.getElementById('f_addr').value='' + s.replace(/'/g,'') + '';document.getElementById('addrSug').style.display='none'"><span style="color:#a8895f;font-size:15px;">📍</span>' + s + '</div>';
+    if(!inp||!box) return;
+    inp.addEventListener('input', function(){
+      var v = this.value.trim();
+      if(v.length < 3){ box.style.display='none'; return; }
+      var cities = ['San Diego, CA','Chula Vista, CA','El Cajon, CA','Escondido, CA','Santee, CA','La Mesa, CA','Spring Valley, CA','National City, CA','Lemon Grove, CA','Bonita, CA'];
+      box.innerHTML = cities.map(function(c){
+        var s = v + ', ' + c;
+        return '<div style="padding:11px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid #e2ddd3;" onmousedown="document.getElementById('f_addr').value=''+s+'';document.getElementById('addrSug').style.display='none'">📍 '+s+'</div>';
       }).join('');
-      box.style.display = 'block';
+      box.style.display='block';
     });
-
-    document.addEventListener('click', function(e) {
-      if(e.target !== input) box.style.display = 'none';
-    });
+    document.addEventListener('click', function(e){ if(e.target!==inp) box.style.display='none'; });
   });
 
-  // ── Form flow ──
-  function goToQuestions() {
-    try {
-      var addr = document.getElementById('f_addr').value.trim();
-      var name = document.getElementById('f_name').value.trim();
-      var phone = document.getElementById('f_phone').value.trim();
-      if(!addr){ alert("Please enter the property address."); return; }
-      if(!name){ alert("Please enter your name."); return; }
-      if(!phone){ alert("Please enter your phone number."); return; }
-      document.getElementById('screen1').style.display='none';
-      document.getElementById('screen2').style.display='block';
-      document.getElementById('qNum').textContent = '1';
-      document.getElementById('qPct').textContent = '17%';
-      document.getElementById('qBar').style.width = '17%';
-    } catch(e) { alert("Error: " + e.message); }
+  function goToQ(){
+    var a=document.getElementById('f_addr').value.trim();
+    var n=document.getElementById('f_name').value.trim();
+    var p=document.getElementById('f_phone').value.trim();
+    if(!a){alert('Please enter the property address.');return;}
+    if(!n){alert('Please enter your name.');return;}
+    if(!p){alert('Please enter your phone number.');return;}
+    document.getElementById('screen1').style.display='none';
+    document.getElementById('screen2').style.display='block';
   }
 
-  function selectChoice(btn, fieldId) {
-    var parent = btn.closest('.choice-grid');
-    parent.querySelectorAll('.choice-btn').forEach(function(b){ b.classList.remove('selected'); });
+  function pick(btn, fieldId, currentQ, nextQId, qIndex){
+    btn.closest('.choice-grid').querySelectorAll('.choice-btn').forEach(function(b){b.classList.remove('selected');});
     btn.classList.add('selected');
-    var txt = btn.textContent.trim().replace(/^\S+\s/, '');
-    document.getElementById(fieldId).value = txt;
-    // Auto-advance after short delay for single-column choices
-    var cols = btn.closest('.choice-grid').style.gridTemplateColumns;
-    if(cols && cols.indexOf('1fr') !== -1 && btn.closest('.choice-grid').children.length <= 4) {
-      setTimeout(function(){ btn.closest('#screen2').querySelector('.calc-btn:last-of-type').click(); }, 350);
-    }
+    document.getElementById(fieldId).value = btn.textContent.trim().replace(/^\S+\s/,'');
+    setTimeout(function(){
+      document.getElementById(currentQ).style.display='none';
+      document.getElementById(nextQId).style.display='block';
+      document.getElementById('qNum').textContent = qIndex+1;
+      document.getElementById('qPct').textContent = qPcts[qIndex]+'%';
+      document.getElementById('qBar').style.width = qPcts[qIndex]+'%';
+    }, 300);
   }
 
-  function nextQ(from) {
-    if(from===1 && !document.getElementById('f_type').value){ alert("Please select a property type."); return; }
-    if(from===2){
-      if(!document.getElementById('f_beds').value){ alert("Please select bedrooms."); return; }
-      if(!document.getElementById('f_baths').value){ alert("Please select bathrooms."); return; }
-    }
-    if(from===3 && !document.getElementById('f_condition').value){ alert("Please select condition."); return; }
-    if(from===4 && !document.getElementById('f_occupied').value){ alert("Please select occupancy."); return; }
-    if(from===5 && !document.getElementById('f_why').value){ alert("Please select reason."); return; }
-    var next = from + 1;
-    document.getElementById('q'+from).style.display='none';
-    document.getElementById('q'+next).style.display='block';
-    document.getElementById('qNum').textContent = next;
-    document.getElementById('qPct').textContent = qPcts[next-1]+'%';
-    document.getElementById('qBar').style.width = qPcts[next-1]+'%';
+  function nextQ(currentQ, nextQId, qIndex){
+    document.getElementById(currentQ).style.display='none';
+    document.getElementById(nextQId).style.display='block';
+    document.getElementById('qNum').textContent = qIndex+1;
+    document.getElementById('qPct').textContent = qPcts[qIndex]+'%';
+    document.getElementById('qBar').style.width = qPcts[qIndex]+'%';
   }
 
-  function submitAll() {
-    try {
-      if(!document.getElementById('f_timeline').value){ alert("Please select your timeline."); return; }
-      var name = document.getElementById('f_name').value.trim();
-      var data = {
-        _subject: "NEW LEAD: " + name + " — " + document.getElementById('f_addr').value.trim(),
-        Name: name,
-        Phone: document.getElementById('f_phone').value.trim(),
-        Email: document.getElementById('f_email').value.trim() || "(not provided)",
-        Address: document.getElementById('f_addr').value.trim(),
-        "Property Type": document.getElementById('f_type').value || "(skipped)",
-        Bedrooms: document.getElementById('f_beds').value || "(skipped)",
-        Bathrooms: document.getElementById('f_baths').value || "(skipped)",
-        Condition: document.getElementById('f_condition').value || "(skipped)",
-        Occupied: document.getElementById('f_occupied').value || "(skipped)",
-        "Why Selling": document.getElementById('f_why').value || "(skipped)",
-        Timeline: document.getElementById('f_timeline').value
-      };
-      // Show success immediately, send in background
-      showSuccess(name);
-      fetch(FORM_ENDPOINT, {
-        method:"POST",
-        headers:{"Content-Type":"application/json","Accept":"application/json"},
-        body:JSON.stringify(data)
-      }).catch(function(e){ console.log("Form send error:", e); });
-    } catch(e) { console.log("Submit error:", e); showSuccess("there"); }
-  }
-
-  function showSuccess(name) {
+  function pickAndSubmit(btn, fieldId){
+    btn.closest('.choice-grid').querySelectorAll('.choice-btn').forEach(function(b){b.classList.remove('selected');});
+    btn.classList.add('selected');
+    document.getElementById(fieldId).value = btn.textContent.trim().replace(/^\S+\s/,'');
+    var name = document.getElementById('f_name').value.trim();
     document.getElementById('screen2').style.display='none';
     document.getElementById('screen3').style.display='block';
-    document.getElementById('successName').textContent = name.split(' ')[0] + ',';
+    document.getElementById('sName').textContent = name.split(' ')[0]+',';
+    // Send to Formspree
+    fetch(EP, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        _subject: 'NEW LEAD: '+name+' — '+document.getElementById('f_addr').value.trim(),
+        Name: name,
+        Phone: document.getElementById('f_phone').value.trim(),
+        Email: document.getElementById('f_email').value.trim()||'(not provided)',
+        Address: document.getElementById('f_addr').value.trim(),
+        Type: document.getElementById('f_type').value||'(skipped)',
+        Beds: document.getElementById('f_beds').value||'(skipped)',
+        Baths: document.getElementById('f_baths').value||'(skipped)',
+        Condition: document.getElementById('f_condition').value||'(skipped)',
+        Occupied: document.getElementById('f_occupied').value||'(skipped)',
+        Why: document.getElementById('f_why').value||'(skipped)',
+        Timeline: document.getElementById('f_timeline').value
+      })
+    }).catch(function(){});
   }
 
   function submitLead(){
-    var name = document.getElementById('lName').value.trim();
-    var phone = document.getElementById('lPhone').value.trim();
-    var addr = document.getElementById('lAddr').value.trim();
-    if(!name || !phone || !addr){ alert("Please fill in your name, phone, and property address."); return; }
-    fetch(FORM_ENDPOINT, { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify({
-      _subject: "NEW LEAD: " + name + " — " + addr,
-      Name: name, Phone: phone, Email: document.getElementById('lEmail').value.trim() || "(not provided)",
-      Address: addr, Notes: document.getElementById('lNotes').value.trim() || "(none)", Source: "Bottom form"
-    })}).then(function(){ document.getElementById('leadForm').style.display='none'; document.getElementById('successMsg').style.display='block'; })
-      .catch(function(){ document.getElementById('leadForm').style.display='none'; document.getElementById('successMsg').style.display='block'; });
+    var n=document.getElementById('lName').value.trim();
+    var p=document.getElementById('lPhone').value.trim();
+    var a=document.getElementById('lAddr').value.trim();
+    if(!n||!p||!a){alert('Please fill in name, phone, and address.');return;}
+    document.getElementById('leadForm').style.display='none';
+    document.getElementById('successMsg').style.display='block';
+    fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({
+      _subject:'NEW LEAD: '+n+' — '+a, Name:n, Phone:p,
+      Email:document.getElementById('lEmail').value.trim()||'(not provided)',
+      Address:a, Notes:document.getElementById('lNotes').value.trim()||'(none)', Source:'Bottom form'
+    })}).catch(function(){});
   }
-
 </script>
 
 <script>
